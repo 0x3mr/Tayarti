@@ -1,3 +1,5 @@
+import mongoose from 'mongoose'
+
 const flightSchema = new mongoose.Schema({
         flightNumber: {
             type: String,
@@ -26,3 +28,6 @@ const flightSchema = new mongoose.Schema({
         }        
     }
 )
+
+const Flight = mongoose.model('Flight', flightSchema)
+export default Flight
