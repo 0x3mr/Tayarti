@@ -18,8 +18,8 @@ export async function createBooking(req, res) {
         await flight.save()
 
         const booking = new Booking({
-            userId: req.user.userId,
-            flightId,
+            userID: req.user.userId,
+            flightID: flightId,
             bookingDate: new Date(),
             numberOfSeats,
             totalPrice: flight.price * numberOfSeats,
@@ -36,8 +36,8 @@ export async function createBooking(req, res) {
 
 export async function getMyBookings(req, res) {
     try {
-        const bookings = await Booking.find({ userId: req.user.userId })
-            .populate('flightId')
+        const bookings = await Booking.find({ userID: req.user.userId })
+            .populate('flightID')
 
         res.status(200).json(bookings)
 
@@ -50,7 +50,7 @@ export async function updateBookingStatus(req, res) {
     try {
         const booking = await Booking.findOne({ 
             _id: req.params.id, 
-            userId: req.user.userId 
+            userID: req.user.userId 
         })
 
         if (!booking) {
