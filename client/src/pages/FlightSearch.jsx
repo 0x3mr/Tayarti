@@ -125,7 +125,7 @@ export default function FlightSearch() {
               className="w-full px-4 py-2 rounded-lg border border-stone-300 focus:ring-2 focus:ring-teal-500 focus:border-teal-500 outline-none"
             />
           </div>
-          <div className="flex items-end">
+          <div className="flex items-end gap-5">
             <button
               type="submit"
               disabled={searchLoading}
@@ -133,6 +133,18 @@ export default function FlightSearch() {
             >
               {searchLoading ? 'Searching...' : 'Search'}
             </button>
+            {(filters.from || filters.to || filters.date) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setFilters({ from: '', to: '', date: '' })
+                  window.location.reload();
+                }}
+                className="py-2.5 px-3 rounded-lg bg-stone-200 hover:bg-stone-300 text-stone-700 font-semibold transition whitespace-nowrap"
+              >
+                ✕ Clear
+              </button>
+            )}
           </div>
         </div>
       </form>
