@@ -19,7 +19,7 @@ A full-stack flight booking application with user authentication, email verifica
 ### 1. Clone and install dependencies
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/0x3mr/Tayarti
 cd Tayarti
 
 # Install client dependencies
@@ -123,4 +123,4 @@ Or use MongoDB Compass to edit the user's `role` field to `"admin"`.
 
 ## License
 
-ISC
+https://github.com/0x3mr/Tayarti/blob/main/LICENSE
