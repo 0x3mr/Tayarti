@@ -64,6 +64,22 @@ export default function BookingHistory() {
     )
   }
 
+  const deleteBooking = async (b, event) => {
+      const button = event.currentTarget;
+      button.parentElement.classList.add('opacity-50');
+      button.textContent = "Deleting...";
+
+      try {
+          await bookingsAPI.deleteBooking(b._id);
+          fetchBookings();
+      } catch (e) {
+          console.error(e);
+          // revert UI if delete fails
+          button.parentElement.classList.remove('opacity-50');
+          button.textContent = "Failed to cancel";
+      }
+  }
+
   return (
     <div>
       <div className="mb-8">
@@ -132,6 +148,9 @@ export default function BookingHistory() {
                       {booking.numberOfSeats} seat(s) • Total: $
                       {booking.totalPrice?.toLocaleString()}
                     </div>
+                  </div>
+                  <div onClick={(event) => deleteBooking(booking, event)} className="bg-red-500/45 p-2 px-4 rounded-xl text-red-950 hover:underline hover:cursor-pointer">
+                    Cancel
                   </div>
                 </div>
               </div>

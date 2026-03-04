@@ -66,3 +66,29 @@ export async function updateBookingStatus(req, res) {
         res.status(500).json({ message: 'Server error', error: error.message })
     }
 }
+
+export async function deleteBooking(req, res) {
+    try {
+        const booking = await Booking.findOne({ 
+            _id: req.params.id, 
+            userID: req.user.userId 
+        })
+
+        if (!booking) {
+            return res.status(404).json({ message: 'Booking not found' })
+        }
+
+        // Restore the seats back to the flight
+        const flight = await Flight.findById(booking.flightID)
+        if (flight) {
+            flight.availableSeats += booking.numberOfSeats
+            await flight.save()
+        }
+
+        await Booking.findByIdAndDelete(req.params.id)
+
+        res.status(200).json({ message: 'Booking deleted successfully' })
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error: error.message })
+    }
+}

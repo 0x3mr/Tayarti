@@ -29,7 +29,8 @@ export const flightsAPI = {
 export const bookingsAPI = {
   create: (data) => api.post('/bookings', data),
   getMyBookings: () => api.get('/bookings/my'),
-  updateStatus: (id, data) => api.put(`/bookings/${id}`, data)
+  updateStatus: (id, data) => api.put(`/bookings/${id}`, data),
+  deleteBooking: (id) => api.delete(`/bookings/${id}`)
 }
 
 export default api
