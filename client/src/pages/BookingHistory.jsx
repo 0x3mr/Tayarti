@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { bookingsAPI } from '../api/api'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/auth'
 import LoadingSpinner from '../components/LoadingSpinner'
 
 export default function BookingHistory() {

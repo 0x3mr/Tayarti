@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/auth'
 
 export default function Layout({ children }) {
   const { user, logout, isAuthenticated } = useAuth()
@@ -22,6 +22,14 @@ export default function Layout({ children }) {
             {isAuthenticated ? (
               <>
                 <Link to="/bookings" className="hover:text-teal-300 transition">My Bookings</Link>
+                {user?.role === 'admin' && (
+                  <Link
+                    to="/admin/flights/new"
+                    className="px-3 py-1.5 rounded bg-teal-700 hover:bg-teal-600 transition"
+                  >
+                    Add Flight
+                  </Link>
+                )}
                 <span className="text-stone-400 text-sm">{user?.name}</span>
                 <button
                   onClick={handleLogout}

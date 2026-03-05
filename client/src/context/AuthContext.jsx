@@ -1,24 +1,20 @@
-import { createContext, useContext, useState, useEffect } from 'react'
-
-const AuthContext = createContext(null)
+import { useState } from 'react'
+import { AuthContext } from './auth'
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
+  const [user, setUser] = useState(() => {
     const token = localStorage.getItem('token')
     const stored = localStorage.getItem('user')
-    if (token && stored) {
-      try {
-        setUser(JSON.parse(stored))
-      } catch {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-      }
+    if (!token || !stored) return null
+    try {
+      return JSON.parse(stored)
+    } catch {
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      return null
     }
-    setLoading(false)
-  }, [])
+  })
+  const [loading] = useState(false)
 
   const login = (userData, token) => {
     localStorage.setItem('token', token)
@@ -37,10 +33,4 @@ export function AuthProvider({ children }) {
       {children}
     </AuthContext.Provider>
   )
-}
-
-export function useAuth() {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-  return ctx
 }

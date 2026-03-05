@@ -7,6 +7,8 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import VerifyEmail from './pages/VerifyEmail'
 import BookingHistory from './pages/BookingHistory'
+import AddFlight from './pages/AddFlight'
+import RequireAdmin from './components/RequireAdmin'
 
 function App() {
   return (
@@ -19,6 +21,14 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/bookings" element={<BookingHistory />} />
+            <Route
+              path="/admin/flights/new"
+              element={
+                <RequireAdmin>
+                  <AddFlight />
+                </RequireAdmin>
+              }
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Layout>
